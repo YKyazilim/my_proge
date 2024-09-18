@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resim Sınıflandırıcı</title>
+</head>
+<body>
+    <h1>Resim Sınıflandırıcı</h1>
+    <form id="upload-form" enctype="multipart/form-data" method="post" action="/predict">
+        <input type="file" id="file-input" name="file" accept="image/*" />
+        <button type="submit">Yükle ve Analiz Et</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('upload-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData();
+            formData.append('file', document.getElementById('file-input').files[0]);
+
+            const response = await fetch('/predict', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+            const resultDiv = document.getElementById('result');
+            
+            if (result.error) {
+                resultDiv.innerHTML = `Hata: ${result.error}`;
+            } else {
+                resultDiv.innerHTML = `Sınıf: ${result.class}<br>Güvenilirlik: ${result.confidence_score}`;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="../../static/css/style.css"> 
+  <title>Arabanızın doğaya verdiği zararı bulun</title>
+</head>
+<body>
+  <header class="header">
+    <div class="header__text">
+      <h1>Arabanızın doğaya verdiği zararı bulun!</h1>
+      <p>Girişimde bulunun ve aracınızın doğaya verdiği zararı bulun.</p>
+    </div>
+  </header>
+  <main>
+    {% block content %}
+    <h2 class="main__title main__title--margin">Aracınızın doğaya verdiği zarar:</h2>
+    <div class="main__rez" id="end">
+        {%if result <= 150%}
+        <img class="rez__img" src="../../static/img/planet_good.svg" alt="">
+        <span>Sonucunuz % {{result/10}}</span>
+        <span>Aracınızın doğaya verdiği zarar çok az!</span>
+        {%elif result > 150 and result < 300%}
+        <img class="rez__img" src="../../static/img/planet_medium.svg" alt="">
+        <span>Sonucunuz % {{result/10}} </span>
+        <span>Aracınızın doğaya verdiği zarar orta düzeydedir!</span>
+        <span>Çevreyi korumaya yardımcı olmak ister misiniz? Formu doldurun ve sizin için çevre dostu bir araba seçelim!</span>
+        <a href="{{ url_for('form') }}" class="main__link">Formu doldurun</a>
+        {%elif result >= 300%}
+        <img class="rez__img" src="../../static/img/planet_bad.svg" alt="">
+        <span>Sonucunuz % {{result/10}} </span>
+        <span>Aracınızın doğayan verdiği zarar ortalamadan yüksektir!</span>
+        <span>Çevreyi korumaya yardımcı olmak ister misiniz? Formu doldurun ve sizin için çevre dostu bir araba seçelim!</span>
+        <a href="{{ url_for('form') }}" class="main__link">Formu doldurun</a>
+        {%endif%}
+    </div>
+    {% endblock %}
+  </main>
+  <footer>
+
+  </footer>
+</body>
+</html>
